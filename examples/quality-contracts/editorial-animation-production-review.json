@@ -1,0 +1,85 @@
+{
+  "version": "1.0",
+  "project_id": "editorial-animation-example",
+  "scene_plan_version": "1.1",
+  "gates": {
+    "sample": {"status": "passed", "evidence": "assets/sample/opening-sample-v3.mp4"},
+    "direction": {"status": "passed", "evidence": "artifacts/scene_plan.json"},
+    "assets": {"status": "passed", "evidence": ["artifacts/asset-provenance.json", "snapshots/assets-contact-sheet.jpg"]},
+    "layout": {"status": "passed", "evidence": "snapshots/layout-contact-sheet.jpg"},
+    "animatic": {"status": "passed", "evidence": "renders/animatic-540p.mp4"},
+    "candidate": {"status": "passed", "evidence": "renders/candidate-540p.mp4"}
+  },
+  "script_temporal_review": {
+    "reference_date_checked": true,
+    "dated_claims_checked": true,
+    "unsupported_present_tense_claims": [],
+    "passed": true,
+    "notes": "The opening says the examples circulated during a past period and does not claim current popularity."
+  },
+  "asset_source_review": {
+    "manifest_version": 2,
+    "traceable_real_asset_ratio": 0.5,
+    "required_ratio": 0.5,
+    "all_used_assets_listed": true,
+    "source_pages_present": true,
+    "hashes_match": true,
+    "ai_visuals_absent": true,
+    "generative_edits_absent": true,
+    "passed": true
+  },
+  "visual_material_review": {
+    "diffuse_light_passed": true,
+    "low_reflection_passed": true,
+    "mirror_highlights_absent": true,
+    "scanning_light_absent": true,
+    "full_frame_glare_absent": true,
+    "mystery_black_stage_absent": true,
+    "apparatus_detail_passed": true,
+    "passed": true
+  },
+  "motion_review": {
+    "plan_validation_passed": true,
+    "plan_validation_report_path": "artifacts/motion-plan-validation.json",
+    "source_lint_passed": true,
+    "source_lint_report_path": "artifacts/remotion-motion-lint.json",
+    "original_speed_reviewed": true,
+    "contact_sheet_path": "snapshots/motion/motion-contact-sheet.jpg",
+    "scenes": [
+      {
+        "scene_id": "sc01-past-prophecy-evidence",
+        "setup_frame": "snapshots/motion/sc01-setup.png",
+        "action_frame": "snapshots/motion/sc01-action.png",
+        "reaction_frame": "snapshots/motion/sc01-reaction.png",
+        "result_frame": "snapshots/motion/sc01-result.png",
+        "causal_change_readable": true,
+        "primary_action_not_full_scene_drift": true,
+        "soundable_impacts_clear": true,
+        "passed": true
+      }
+    ],
+    "flagged_intervals": [],
+    "passed": true
+  },
+  "audio_review": {
+    "sfx_strategy": "impact_bound",
+    "sfx_bindings_valid": true,
+    "music_context_preview_seconds": 30,
+    "music_audition_offsets_db": [-18, -14, -10],
+    "selected_music_offset_db": -14,
+    "narration_intelligible": true,
+    "music_level_approved": true,
+    "passed": true
+  },
+  "subtitle_review": {
+    "expected": true,
+    "present": true,
+    "coverage_ratio": 1,
+    "timing_level": "segment_exact",
+    "timing_drift_detected": false,
+    "passed": true
+  },
+  "overall_status": "pass",
+  "issues": [],
+  "reviewed_output_path": "renders/candidate-540p.mp4"
+}

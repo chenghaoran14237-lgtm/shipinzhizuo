@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "openmontage/artifacts/production_quality_review",
+  "title": "Production Quality Review",
+  "description": "Binding review for scene-plan 1.1 productions. It proves the script, sources, material treatment, motion, sound, music and subtitles survived the real render.",
+  "$defs": {
+    "passedGate": {
+      "type": "object",
+      "required": ["status", "evidence"],
+      "properties": {
+        "status": { "type": "string", "const": "passed" },
+        "evidence": {
+          "oneOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 }
+          ]
+        },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "type": "object",
+  "required": ["version", "project_id", "scene_plan_version", "gates", "script_temporal_review", "asset_source_review", "visual_material_review", "motion_review", "audio_review", "subtitle_review", "overall_status"],
+  "properties": {
+    "version": { "type": "string", "const": "1.0" },
+    "project_id": { "type": "string", "minLength": 1 },
+    "scene_plan_version": { "type": "string", "const": "1.1" },
+    "gates": {
+      "type": "object",
+      "required": ["sample", "direction", "assets", "layout", "animatic", "candidate"],
+      "properties": {
+        "sample": { "$ref": "#/$defs/passedGate" },
+        "direction": { "$ref": "#/$defs/passedGate" },
+        "assets": { "$ref": "#/$defs/passedGate" },
+        "layout": { "$ref": "#/$defs/passedGate" },
+        "animatic": { "$ref": "#/$defs/passedGate" },
+        "candidate": { "$ref": "#/$defs/passedGate" }
+      },
+      "additionalProperties": false
+    },
+    "script_temporal_review": {
+      "type": "object",
+      "required": ["reference_date_checked", "dated_claims_checked", "unsupported_present_tense_claims", "passed"],
+      "properties": {
+        "reference_date_checked": { "type": "boolean", "const": true },
+        "dated_claims_checked": { "type": "boolean", "const": true },
+        "unsupported_present_tense_claims": { "type": "array", "maxItems": 0 },
+        "passed": { "type": "boolean", "const": true },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "asset_source_review": {
+      "type": "object",
+      "required": ["manifest_version", "traceable_real_asset_ratio", "required_ratio", "all_used_assets_listed", "source_pages_present", "hashes_match", "ai_visuals_absent", "generative_edits_absent", "passed"],
+      "properties": {
+        "manifest_version": { "type": "integer", "const": 2 },
+        "traceable_real_asset_ratio": { "type": "number", "minimum": 0.35, "maximum": 1 },
+        "required_ratio": { "type": "number", "minimum": 0.35, "maximum": 1 },
+        "all_used_assets_listed": { "type": "boolean", "const": true },
+        "source_pages_present": { "type": "boolean", "const": true },
+        "hashes_match": { "type": "boolean", "const": true },
+        "ai_visuals_absent": { "type": "boolean", "const": true },
+        "generative_edits_absent": { "type": "boolean", "const": true },
+        "passed": { "type": "boolean", "const": true },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "visual_material_review": {
+      "type": "object",
+      "required": ["diffuse_light_passed", "low_reflection_passed", "mirror_highlights_absent", "scanning_light_absent", "full_frame_glare_absent", "mystery_black_stage_absent", "apparatus_detail_passed", "passed"],
+      "properties": {
+        "diffuse_light_passed": { "type": "boolean", "const": true },
+        "low_reflection_passed": { "type": "boolean", "const": true },
+        "mirror_highlights_absent": { "type": "boolean", "const": true },
+        "scanning_light_absent": { "type": "boolean", "const": true },
+        "full_frame_glare_absent": { "type": "boolean", "const": true },
+        "mystery_black_stage_absent": { "type": "boolean", "const": true },
+        "apparatus_detail_passed": { "type": "boolean", "const": true },
+        "passed": { "type": "boolean", "const": true },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "motion_review": {
+      "type": "object",
+      "required": ["plan_validation_passed", "plan_validation_report_path", "source_lint_passed", "source_lint_report_path", "original_speed_reviewed", "contact_sheet_path", "scenes", "passed"],
+      "properties": {
+        "plan_validation_passed": { "type": "boolean", "const": true },
+        "plan_validation_report_path": { "type": "string", "minLength": 1 },
+        "source_lint_passed": { "type": "boolean", "const": true },
+        "source_lint_report_path": { "type": "string", "minLength": 1 },
+        "original_speed_reviewed": { "type": "boolean", "const": true },
+        "contact_sheet_path": { "type": "string", "minLength": 1 },
+        "scenes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["scene_id", "setup_frame", "action_frame", "reaction_frame", "result_frame", "causal_change_readable", "primary_action_not_full_scene_drift", "soundable_impacts_clear", "passed"],
+            "properties": {
+              "scene_id": { "type": "string", "minLength": 1 },
+              "setup_frame": { "type": "string", "minLength": 1 },
+              "action_frame": { "type": "string", "minLength": 1 },
+              "reaction_frame": { "type": "string", "minLength": 1 },
+              "result_frame": { "type": "string", "minLength": 1 },
+              "causal_change_readable": { "type": "boolean", "const": true },
+              "primary_action_not_full_scene_drift": { "type": "boolean", "const": true },
+              "soundable_impacts_clear": { "type": "boolean" },
+              "passed": { "type": "boolean", "const": true },
+              "notes": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "flagged_intervals": { "type": "array", "maxItems": 0 },
+        "passed": { "type": "boolean", "const": true }
+      },
+      "additionalProperties": false
+    },
+    "audio_review": {
+      "type": "object",
+      "required": ["sfx_strategy", "sfx_bindings_valid", "music_context_preview_seconds", "music_audition_offsets_db", "selected_music_offset_db", "narration_intelligible", "music_level_approved", "passed"],
+      "properties": {
+        "sfx_strategy": { "type": "string", "enum": ["impact_bound", "intentionally_omitted"] },
+        "sfx_omission_reason": { "type": "string", "minLength": 8 },
+        "sfx_bindings_valid": { "type": "boolean", "const": true },
+        "music_context_preview_seconds": { "type": "number", "minimum": 20 },
+        "music_audition_offsets_db": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 2,
+          "uniqueItems": true
+        },
+        "selected_music_offset_db": { "type": "number" },
+        "narration_intelligible": { "type": "boolean", "const": true },
+        "music_level_approved": { "type": "boolean", "const": true },
+        "passed": { "type": "boolean", "const": true },
+        "notes": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "sfx_strategy": { "const": "intentionally_omitted" } } },
+          "then": { "required": ["sfx_omission_reason"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "subtitle_review": {
+      "type": "object",
+      "required": ["expected", "present", "coverage_ratio", "timing_level", "timing_drift_detected", "passed"],
+      "properties": {
+        "expected": { "type": "boolean", "const": true },
+        "present": { "type": "boolean", "const": true },
+        "coverage_ratio": { "type": "number", "minimum": 0.99, "maximum": 1 },
+        "timing_level": { "type": "string", "enum": ["segment_exact", "word_exact", "forced_alignment"] },
+        "timing_drift_detected": { "type": "boolean", "const": false },
+        "passed": { "type": "boolean", "const": true },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "overall_status": { "type": "string", "const": "pass" },
+    "issues": { "type": "array", "maxItems": 0 },
+    "reviewed_output_path": { "type": "string" },
+    "metadata": { "type": "object" }
+  },
+  "additionalProperties": false
+}

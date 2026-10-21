@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "openmontage/artifacts/asset_manifest",
+  "title": "Asset Manifest",
+  "description": "Asset inventory. Version 2 adds binding non-AI provenance. Version 3 records both deterministic and generative derivatives without weakening the still-supported v1/v2 contracts.",
+  "$defs": {
+    "voicePerformance": {
+      "type": "object",
+      "properties": {
+        "source_section_id": { "type": "string" },
+        "delivery_cues_applied": { "type": "boolean" },
+        "provider_text_used": { "type": "boolean" },
+        "provider_settings": { "type": "object", "additionalProperties": true },
+        "sample_approved": { "type": "boolean" },
+        "sample_path": { "type": "string" },
+        "review_notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "assetCommon": {
+      "type": "object",
+      "required": ["id", "type", "path", "source_tool", "scene_id"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["image", "video", "audio", "narration", "music", "sfx", "diagram", "animation", "code_snippet", "subtitle", "font", "lut"]
+        },
+        "path": { "type": "string", "description": "Relative path within the pipeline project directory" },
+        "source_tool": { "type": "string" },
+        "scene_id": { "type": "string" },
+        "prompt": { "type": "string" },
+        "seed": { "type": "integer" },
+        "model": { "type": "string" },
+        "cost_usd": { "type": "number", "minimum": 0 },
+        "duration_seconds": { "type": "number", "minimum": 0 },
+        "resolution": { "type": "string" },
+        "format": { "type": "string" },
+        "quality_score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "subtype": { "type": "string" },
+        "generation_summary": { "type": "string" },
+        "provider": { "type": "string" },
+        "license": { "type": "string" },
+        "original_url": { "type": "string" },
+        "voice_performance": { "$ref": "#/$defs/voicePerformance" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["creator", "title", "rights", "access_date", "source_path", "derivative_path", "processing", "sha256", "generative_processing"],
+      "properties": {
+        "creator": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "date_or_era": { "type": "string" },
+        "institution": { "type": "string" },
+        "original_url": { "type": "string", "minLength": 1 },
+        "rights": { "type": "string", "minLength": 1 },
+        "access_date": { "type": "string", "minLength": 8 },
+        "source_path": { "type": "string", "minLength": 1 },
+        "derivative_path": { "type": "string", "minLength": 1 },
+        "processing": { "type": "array", "items": { "type": "string" } },
+        "sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+        "generative_processing": { "type": "boolean", "const": false }
+      },
+      "additionalProperties": false
+    },
+    "provenanceV3": {
+      "type": "object",
+      "required": ["creator", "title", "rights", "access_date", "source_path", "derivative_path", "processing", "sha256", "generative_processing"],
+      "properties": {
+        "creator": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "date_or_era": { "type": "string" },
+        "institution": { "type": "string" },
+        "original_url": { "type": "string", "minLength": 1 },
+        "rights": { "type": "string", "minLength": 1 },
+        "access_date": { "type": "string", "minLength": 8 },
+        "source_path": { "type": "string", "minLength": 1 },
+        "source_sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+        "derivative_path": { "type": "string", "minLength": 1 },
+        "processing": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+        "generative_processing": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "generativeDerivative": {
+      "type": "object",
+      "required": [
+        "parent_asset_ids",
+        "generation_tool",
+        "provider",
+        "requested_variant",
+        "resolved_model_id",
+        "prompt_path",
+        "prompt_sha256",
+        "edit_scope",
+        "factual_invariants",
+        "authenticity_status",
+        "human_review_status",
+        "cost_status"
+      ],
+      "properties": {
+        "parent_asset_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "generation_tool": { "type": "string", "minLength": 1 },
+        "provider": { "type": "string", "minLength": 1 },
+        "requested_variant": { "type": "string", "minLength": 1 },
+        "resolved_model_id": { "type": "string", "minLength": 1 },
+        "request_id": { "type": "string", "minLength": 1 },
+        "generation_output_path": { "type": "string", "minLength": 1 },
+        "generation_output_sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+        "generation_event_id": { "type": "string", "minLength": 1 },
+        "wrapper_call_id": { "type": "string", "minLength": 1 },
+        "c2pa_claim_id": { "type": "string", "minLength": 1 },
+        "c2pa_instance_id": { "type": "string", "minLength": 1 },
+        "c2pa_claim_generator": { "type": "string", "minLength": 1 },
+        "c2pa_software_agent": { "type": "string", "minLength": 1 },
+        "c2pa_digital_source_type": { "type": "string", "minLength": 1 },
+        "prompt_path": { "type": "string", "minLength": 1 },
+        "prompt_sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+        "edit_scope": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "factual_invariants": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "authenticity_status": {
+          "type": "string",
+          "enum": ["support-layer-only", "source-grounded-derivative", "synthetic-primary"]
+        },
+        "human_review_status": {
+          "type": "string",
+          "enum": ["pending", "selected", "approved", "rejected"]
+        },
+        "cost_status": {
+          "type": "string",
+          "enum": ["known", "not_exposed", "not_applicable"]
+        },
+        "generation_cost_usd": { "type": "number", "minimum": 0 },
+        "runtime_copy_path": { "type": "string", "minLength": 1 },
+        "runtime_copy_sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "cost_status": { "const": "known" } },
+            "required": ["cost_status"]
+          },
+          "then": { "required": ["generation_cost_usd"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "assetV1": {
+      "allOf": [{ "$ref": "#/$defs/assetCommon" }],
+      "unevaluatedProperties": false
+    },
+    "assetV2": {
+      "allOf": [
+        { "$ref": "#/$defs/assetCommon" },
+        {
+          "type": "object",
+          "required": ["source_kind", "director_role", "provenance"],
+          "properties": {
+            "source_kind": {
+              "type": "string",
+              "enum": ["archive", "artwork", "photograph", "footage", "provided_local", "recorded_local", "programmatic_local", "audio_source"]
+            },
+            "director_role": { "type": "string", "minLength": 1 },
+            "provenance": { "$ref": "#/$defs/provenance" }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "assetV3": {
+      "allOf": [
+        { "$ref": "#/$defs/assetCommon" },
+        {
+          "type": "object",
+          "required": ["source_kind", "director_role", "provenance"],
+          "properties": {
+            "source_kind": {
+              "type": "string",
+              "enum": ["archive", "artwork", "photograph", "footage", "provided_local", "recorded_local", "programmatic_local", "audio_source", "generative_derivative"]
+            },
+            "director_role": { "type": "string", "minLength": 1 },
+            "provenance": { "$ref": "#/$defs/provenanceV3" },
+            "generative_derivative": { "$ref": "#/$defs/generativeDerivative" }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "provenance": {
+                "properties": { "generative_processing": { "const": true } },
+                "required": ["generative_processing"]
+              }
+            },
+            "required": ["provenance"]
+          },
+          "then": {
+            "required": ["generative_derivative"],
+            "properties": {
+              "provenance": { "required": ["source_sha256"] },
+              "source_kind": { "const": "generative_derivative" }
+            }
+          },
+          "else": {
+            "not": { "required": ["generative_derivative"] }
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["version", "assets"],
+      "properties": {
+        "version": { "type": "string", "const": "1.0" },
+        "assets": { "type": "array", "items": { "$ref": "#/$defs/assetV1" } },
+        "total_cost_usd": { "type": "number", "minimum": 0 },
+        "metadata": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["version", "policy", "assets"],
+      "properties": {
+        "version": { "type": "string", "const": "2.0" },
+        "policy": {
+          "type": "object",
+          "required": ["ai_generated_visuals", "generative_edits"],
+          "properties": {
+            "ai_generated_visuals": { "type": "boolean", "const": false },
+            "generative_edits": { "type": "boolean", "const": false }
+          },
+          "additionalProperties": false
+        },
+        "assets": { "type": "array", "items": { "$ref": "#/$defs/assetV2" } },
+        "total_cost_usd": { "type": "number", "minimum": 0 },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "traceable_real_asset_ratio": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["version", "policy", "assets"],
+      "properties": {
+        "version": { "type": "string", "const": "3.0" },
+        "policy": {
+          "type": "object",
+          "required": ["ai_generated_visuals", "generative_edits"],
+          "properties": {
+            "ai_generated_visuals": { "type": "boolean" },
+            "generative_edits": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        },
+        "assets": { "type": "array", "items": { "$ref": "#/$defs/assetV3" } },
+        "total_cost_usd": { "type": "number", "minimum": 0 },
+        "metadata": {
+          "type": "object",
+          "properties": {
+            "traceable_real_asset_ratio": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

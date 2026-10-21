@@ -1,0 +1,144 @@
+identity:
+  name: "Book Reading Editorial Documentary"
+  category: custom
+  mood: "cold-white, lucid, credible, contemporary, evidence-led"
+  pace: moderate
+  best_for: "Chinese short-form book close readings that explain systems through real evidence and authored mechanism animation"
+
+taste_profile:
+  design_read: "A high-trust editorial documentary: real photographs and documents carry reality while precise local motion reveals the book's causal mechanism."
+  visual_variance: 7
+  motion_intensity: 5
+  information_density: 6
+  palette_discipline: "Cold white and near-black dominate; steel blue-gray organizes secondary structure; causal red marks one decisive relationship per scene; amber is rare and reserved for risk."
+  layout_variation: "Alternate full evidence, split evidence, document inspection, close detail, mechanism space, and restrained conceptual transformation without falling into card layouts."
+  reference_strategy: "Define the argument and exact representative evidence slot before search; lock provenance, rights, original file, processing plan, and final-scale readability before composition."
+  anti_patterns:
+    - "traditional PowerPoint cards or poster sequences"
+    - "warm yellow, sepia, or nostalgic paper treatment"
+    - "generic streets, skylines, offices, and stock icon mosaics"
+    - "corporate blue dashboards and full-screen vector infographics"
+    - "black text on dark or detailed photographic material"
+    - "continuous Ken Burns drift or repeated fade-slide-zoom entrances"
+    - "decorative lines, particles, and camera motion without semantic purpose"
+  quality_gates:
+    - "Each scene has one primary claim, one semantic verb, and one visible result."
+    - "Real material remains inspectable and participates in the action rather than decorating a card."
+    - "A setup/action/reaction/result motion proof is required before inferring that animation works from a still."
+    - "Accepted visual, voice, and mix layers are frozen and later revisions patch only the affected surface."
+
+visual_language:
+  color_palette:
+    primary: ["#17191A", "#52656E"]
+    accent: ["#C43D32", "#D89A2B"]
+    background: "#F2F1ED"
+    text: "#17191A"
+    muted: "#747A7D"
+  composition: "Native 4:3 twelve-column editorial grid; one primary evidence subject; asymmetrical negative space; vary full evidence, split evidence, document inspection, close detail, and mechanism views."
+  texture: "Contemporary matte newsprint restraint with light source-appropriate grain; preserve real photographic identity and avoid blanket duotone or vintage aging."
+
+typography:
+  headings:
+    font: "Source Han Sans SC"
+    weight: 800
+    tracking: "-0.01em"
+  body:
+    font: "Source Han Sans SC"
+    weight: 500
+    line_height: 1.5
+  code:
+    font: "Noto Sans Mono CJK SC"
+    weight: 400
+  stat_card:
+    font: "Source Han Sans SC"
+    weight: 800
+    size_multiplier: 2.8
+  scale_system: major_third
+  weight_matrix:
+    title: 900
+    heading: 800
+    body: 500
+    caption: 500
+
+motion:
+  transitions:
+    - "visible-evidence-handoff"
+    - "causal-match-cut"
+    - "restrained-hard-cut"
+    - "documentary-dissolve-for-time-or-source-change"
+  animation_style: "One authored semantic verb per scene, staged as setup, action, reaction, and visible result. Use short physical actions attached to evidence, then hold the consequence; no continuous decorative drift."
+  pacing_rules:
+    min_scene_hold_seconds: 2.5
+    max_scene_hold_seconds: 14
+    text_card_hold_seconds: 3.5
+    stat_card_hold_seconds: 3.25
+    transition_duration_seconds: 0.4
+  entrance: "Evidence begins stable or enters through a motivated handoff; do not treat fade-up or slide-in as a complete scene action."
+  exit: "Carry a visible object, route, crop, sound, or causal residue into the next scene; otherwise use a restrained hard cut."
+
+audio:
+  voice_style: "Informed and restrained Mandarin explanation with audible contrast, firm mechanism beats, natural 1.0x pacing, continuous thought units, and deliberate conclusion landings; avoid formal newscaster delivery and dry sentence-by-sentence TTS."
+  music_mood: "Modern restrained documentary bed: lucid, lightly propulsive, non-sentimental, audible in pauses, and smoothly ducked beneath narration."
+  music_volume: 0.12
+  sfx_style: "Sparse tactile paper, stamp, bind, route, contact, and mechanism sounds only on visible semantic events."
+  ducking_threshold_db: -6
+  voice_variation_allowed: true
+  hero_moment_voice_shift: "Slow slightly and land the core thesis or final practical lens with firmer contrast, without theatrical hype."
+  transition_voice_shift: "Keep related thoughts continuous; use a short natural rhetorical pause instead of a digital break."
+
+asset_generation:
+  image_prompt_prefix: "cold-white contemporary editorial documentary evidence frame, native 4:3, traceable real-world subject, inspectable detail, restrained asymmetrical composition, graphics attached to evidence only"
+  image_negative_prompt: "warm sepia paper, generic street, anonymous office, corporate dashboard, stock icon collage, poster card, black text on dark photo, decorative lines, continuous floating motion, untraceable synthetic evidence"
+  diagram_style: "Thin but decisive near-black and steel-blue structure attached to real evidence; one causal red route or force; labels in cold-white negative space; show setup, force, reaction, and residue."
+  consistency_anchors:
+    - "Cold news white #F2F1ED and near-black #17191A dominate."
+    - "Real photographs, official documents, maps, or archives remain the primary subject."
+    - "Causal red #C43D32 marks no more than one main relationship per scene."
+    - "Every prominent motion has a semantic verb and visible result."
+    - "Full subtitles are mathematically centered on a cold-white safety rail when needed."
+
+overlays:
+  stat_card:
+    bg: "#F2F1ED"
+    border: "#747A7D"
+    text: "#17191A"
+    radius: 2
+    shadow: "none"
+  key_term:
+    bg: "#F2F1ED"
+    text: "#C43D32"
+    border: "#C43D32"
+    radius: 2
+  code_block:
+    bg: "#17191A"
+    text: "#F2F1ED"
+    highlight: "#D89A2B"
+    radius: 2
+
+quality_rules:
+  - "Render natively at 1440x1080, 30fps, 4:3 unless an approved exception is logged."
+  - "Show the opening book cover in full and hold through the spoken-title pause."
+  - "Maintain at least 4.5:1 contrast for all essential text."
+  - "Center full subtitles at x=720 on a 1440px-wide frame; never align by eye."
+  - "Do not place black text directly over dark or high-detail evidence."
+  - "Define a representative evidence slot and its argumentative function before searching."
+  - "Process every downloaded source for its role; never paste a raw rectangle into a generic card."
+  - "Use setup, action, reaction, result, and an intentional result hold for every primary scene action."
+  - "Move the camera only when attention, scale, or causal relationship changes."
+  - "Preserve accepted layers and use the smallest possible patch for revisions."
+  - "When real photographs or documents lead a scene, keep the authentic subject large and visibly art-direct it through topic-specific layer separation, local print or material treatment, physical occlusion, and semantic motion; raw cutouts and one-click global filters do not satisfy the series quality bar."
+  - "Do not use mechanical archive UI, translucent white panels, centered card stacks, or slide-deck composition as a substitute for authored editorial relationships."
+  - "Treat image-generation outputs, when explicitly approved, as disclosed support plates for negative space, depth, texture, or clean backgrounds; restore traceable real subject pixels above them whenever the scene makes a documentary claim."
+  - "Keep non-subtitle text scarce: use only indispensable dates, numeric anchors, chemical names, or source details that cannot be carried by the image and action."
+
+chart_palette:
+  - "#C43D32"
+  - "#52656E"
+  - "#17191A"
+  - "#D89A2B"
+  - "#747A7D"
+
+color_rules:
+  harmony_type: split-complementary
+  contrast_validation: true
+  colorblind_safe: true

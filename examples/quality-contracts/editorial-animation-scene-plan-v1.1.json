@@ -1,0 +1,155 @@
+{
+  "version": "1.1",
+  "style_playbook": "custom-archive-daylight-evidence",
+  "quality_contract": {
+    "temporal_framing": {
+      "reference_date": "2026-08-06",
+      "present_tense_claims": "allowed_only_with_current_evidence",
+      "dated_claims_required": true,
+      "claim_review_required": true
+    },
+    "evidence_policy": {
+      "ai_generated_visuals": false,
+      "generative_edits": false,
+      "minimum_traceable_real_asset_ratio": 0.5,
+      "asset_manifest_version": 2,
+      "source_pages_required": true,
+      "file_hashes_required": true
+    },
+    "visual_material_policy": {
+      "lighting_model": "diffuse_daylight",
+      "reflection_level": "low",
+      "mirror_highlights": false,
+      "scanning_light": false,
+      "full_frame_glare": false,
+      "mystery_black_stage": false,
+      "material_notes": "Uncoated paper, unfinished wood and oxidized iron under broad diffuse daylight."
+    },
+    "sample_gate": {
+      "sample_id": "opening-sample-v3",
+      "status": "approved",
+      "evidence_path": "assets/sample/opening-sample-v3.mp4",
+      "evaluated_axes": [
+        "script_accuracy",
+        "source_density",
+        "light_material",
+        "apparatus_detail",
+        "motion_readability",
+        "voice_timing"
+      ]
+    },
+    "motion_policy": {
+      "fps": 30,
+      "default_action_max_frames": 36,
+      "warning_action_max_frames": 45,
+      "hard_action_max_frames": 90,
+      "anticipation_range_frames": [4, 15],
+      "reaction_range_frames": [6, 30],
+      "minimum_result_hold_frames": 21,
+      "minimum_primary_displacement_short_axis_ratio": 0.05,
+      "forbid_full_scene_primary_interpolation": true,
+      "events_per_mechanism_scene": [1, 6]
+    },
+    "audio_policy": {
+      "sfx_anchor": "impact_only",
+      "sfx_may_be_intentionally_omitted": true,
+      "music_context_preview_required": true,
+      "music_preview_min_seconds": 20,
+      "music_audition_min_levels": 2,
+      "subtitles_required": true
+    },
+    "review_policy": {
+      "four_state_contact_sheet": true,
+      "animatic_original_speed": true,
+      "candidate_original_speed": true,
+      "return_to_earliest_failed_gate": true
+    }
+  },
+  "scenes": [
+    {
+      "id": "sc01-past-prophecy-evidence",
+      "type": "broll",
+      "description": "Two dated real article pages are squared by a paper clamp, revealing that opposed predictions share one story seam.",
+      "start_seconds": 0,
+      "end_seconds": 10,
+      "script_section_id": "s01",
+      "framing": "Medium-wide overhead evidence table with a protected lower subtitle rail.",
+      "movement": "One short clamp event with visible paper compression and rebound.",
+      "transition_in": "cut on page texture",
+      "transition_out": "fold seam becomes the next scene edge",
+      "overlay_notes": "Keep dates and source labels readable above subtitles.",
+      "shot_intent": "Frame the internet examples as a dated past wave, not a currently trending event.",
+      "narrative_role": "introduce_subject",
+      "information_role": "The viewer sees two predictions become one ordering mechanism.",
+      "hero_moment": true,
+      "texture_keywords": ["matte paper", "unfinished wood", "diffuse daylight"],
+      "intention": "Replace supernatural novelty with a visible comparison mechanism.",
+      "primary_subject": "Two dated real article pages and one paper clamp",
+      "semantic_verb": "clamp",
+      "setup": "The pages rest separately with their dates and sources visible.",
+      "action": "The clamp closes quickly and squares both pages to one baseline.",
+      "reaction": "Paper edges buckle and rebound while the headlines face one another.",
+      "result": "A shared fold seam remains visible after the clamp stops.",
+      "exit_intent": "The fold seam becomes the edge of the next apparatus.",
+      "occlusion_plan": "Clamp stays below the headlines; subtitles stay in a separate lower rail.",
+      "handoff": "Continue the fold seam and the direction of compression into scene two.",
+      "motion_mode": "event",
+      "motion_beats": [
+        {
+          "id": "beat-clamp-pages",
+          "kind": "clamp",
+          "material": "mixed",
+          "start_frame": 20,
+          "anticipation_frames": 8,
+          "action_frames": 24,
+          "reaction_frames": 12,
+          "settle_frames": 8,
+          "result_hold_frames": 60,
+          "impact_frame": 40,
+          "continuous": false,
+          "visible_result": "Both pages remain aligned around a permanent shared seam.",
+          "displacement": {
+            "y_short_axis_ratio": 0.12,
+            "rotation_degrees": 0,
+            "scale_delta": 0
+          }
+        }
+      ],
+      "sound_cues": [
+        {
+          "id": "sfx-clamp-contact",
+          "role": "sfx",
+          "motion_beat_id": "beat-clamp-pages",
+          "anchor": "impact",
+          "offset_frames": 0,
+          "description": "Dry wood contact and short paper compression."
+        }
+      ],
+      "required_assets": [
+        {
+          "id": "asset-dated-article-pages",
+          "type": "real web evidence",
+          "description": "Two dated article-page crops with stable source pages.",
+          "source": "source",
+          "source_kind": "archive",
+          "provenance_ref": "artifacts/asset-provenance.json#asset-dated-article-pages",
+          "visual_role": "Primary dated evidence",
+          "generative_processing": false
+        },
+        {
+          "id": "asset-local-clamp",
+          "type": "local mechanism",
+          "description": "Deterministically drawn low-reflection paper clamp.",
+          "source": "generate",
+          "source_kind": "programmatic_local",
+          "provenance_ref": "artifacts/asset-provenance.json#asset-local-clamp",
+          "visual_role": "Causal comparison apparatus",
+          "generative_processing": false
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "purpose": "Copyable reference for new editorial-quality animation projects"
+  }
+}
